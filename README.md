@@ -1,9 +1,10 @@
 
 # Proyecto Educacional - SpeedFast 
 
-Este repositorio contiene el desarrollo de un proyecto educacional en Java: SpeedFast, un sistema de reparto de pedidos.
-A través de una serie de desafíos prácticos, el proyecto irá evolucionando a lo largo del bimestre, aplicando progresivamente
-los distintos conceptos de la Programación Orientada a Objetos.
+Este repositorio contiene el desarrollo de un proyecto educacional en Java: 
+SpeedFast, un sistema de reparto de pedidos.
+A través de una serie de desafíos prácticos, el proyecto irá evolucionando a lo largo del bimestre,
+aplicando progresivamente los distintos conceptos de la Programación Orientada a Objetos.
 
 ## 📚 Contenido del repositorio
 
