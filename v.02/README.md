@@ -1,2 +1,0 @@
-
-  ejemplo de reamde.md
