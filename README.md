@@ -10,10 +10,14 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 
 | Versión | Contenido |
 |---|---|
-| v1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo |
-| v2 | |
-| v3 | |
-| v4 | |
+| Semana 1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo |
+| Semana 2 | Definiendo una clase abstracta |
+| Semana 3 | |
+| Semana 4 | |
+| Semana 5 | |
+| Semana 6 | |
+| Semana 7 | |
+| Semana 8 | |
 
 ## 🛠️ Software y herramientas de desarrollo
 
