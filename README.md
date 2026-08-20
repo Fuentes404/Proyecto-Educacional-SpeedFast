@@ -8,16 +8,16 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 
 ## 📚 Contenido del repositorio
 
-| Versión | Contenido |
+| Versión | Semana | Contenido |
 |---|---|
-| Semana 1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo |
-| Semana 2 | Definiendo una clase abstracta |
-| Semana 3 | Integrando abstracción, polimorfismo y desacoplamiento |
-| Semana 4 | |
-| Semana 5 | |
-| Semana 6 | |
-| Semana 7 | |
-| Semana 8 | |
+| v.01 | Semana 1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo |
+| v.02 | Semana 2 | Definiendo una clase abstracta |
+| v.03 | Semana 3 | Integrando abstracción, polimorfismo y desacoplamiento |
+| v.04 | Semana 4 | |
+| v.05 | Semana 5 | |
+| v.06 | Semana 6 | |
+| v.07 | Semana 7 | |
+| v.08 | Semana 8 | |
 
 ## 🛠️ Software y herramientas de desarrollo
 
