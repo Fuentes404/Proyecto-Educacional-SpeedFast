@@ -9,7 +9,7 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 ## 📚 Contenido del repositorio
 
 | Versión | Semana | Contenido |
-|---|---|
+|---|---|---|
 | v.01 | Semana 1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo |
 | v.02 | Semana 2 | Definiendo una clase abstracta |
 | v.03 | Semana 3 | Integrando abstracción, polimorfismo y desacoplamiento |
