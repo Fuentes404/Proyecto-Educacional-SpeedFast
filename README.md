@@ -13,7 +13,7 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 | v.01 | Semana 1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo |
 | v.02 | Semana 2 | Definiendo una clase abstracta |
 | v.03 | Semana 3 | Integrando abstracción, polimorfismo y desacoplamiento |
-| v.04 | Semana 4 | |
+| v.04 | Semana 4 | Integrando Concurrencia con hilos |
 | v.05 | Semana 5 | |
 | v.06 | Semana 6 | |
 | v.07 | Semana 7 | |
