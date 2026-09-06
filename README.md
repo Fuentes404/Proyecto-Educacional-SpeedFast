@@ -29,8 +29,8 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 | **Semana 4** | `interfaces`, `model`, `services` (`ControladorEnvios`, `Repartidor`), `ui.Main` | Se suma la clase `Repartidor` y se integra **concurrencia con hilos** para simular el procesamiento simultáneo de pedidos. |
 | **Semana 5** | _Pendiente de definir_ | Carpeta creada como base para el siguiente avance del proyecto. |
 | **Semana 6** | _Pendiente de definir_ | Carpeta creada como base para el siguiente avance del proyecto. |
-| **Semana 7** | _Por publicar_ | — |
-| **Semana 8** | _Por publicar_ | Entrega final: interfaz gráfica con Swing y conexión a base de datos (JDBC). |
+| **Semana 7** | _Pendiente de definir_ | Carpeta creada como base para el siguiente avance del proyecto. |
+| **Semana 8** | _Pendiente de definir_ | Carpeta creada como base para el siguiente avance del proyecto. |
 
 > Nota: el detalle de las semanas 5 en adelante se irá completando a medida que se suban los avances correspondientes.
 
@@ -58,20 +58,6 @@ Si quieres tener tu propia copia del proyecto para estudiarlo, modificarlo o usa
    cd v.04/SistemaSpeedFast
    ```
    y abrir esa carpeta como proyecto Maven/Java desde IntelliJ.
-4. **(Opcional) Crear tu propia copia independiente en GitHub:**
-   - Opción A — *Fork*: entra al repositorio en GitHub y presiona el botón **Fork** para crear una copia en tu propia cuenta.
-   - Opción B — *Repositorio nuevo desde este código*:
-     ```bash
-     git clone https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast.git
-     cd Proyecto-Educacional-SpeedFast
-     rm -rf .git
-     git init
-     git remote add origin https://github.com/TU-USUARIO/TU-NUEVO-REPO.git
-     git add .
-     git commit -m "Copia inicial del proyecto SpeedFast"
-     git push -u origin main
-     ```
-5. **Compilar y ejecutar** la clase `ui/Main.java` de la versión elegida para probar el sistema.
 
 ## 🎯 Finalidad del proyecto
 
