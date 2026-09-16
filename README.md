@@ -14,7 +14,7 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 | v.03    | Semana 3 | Integrando abstracción, polimorfismo y desacoplamiento                   | [📂 v.03](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.03) |
 | v.04    | Semana 4 | Integrando Concurrencia con hilos                                          | [📂 v.04](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.04) |
 | v.05    | Semana 5 | Coordinacion entre Clases con sincronización manual (`wait`/`notifyAll`)     | [📂 v.05](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.05) |
-| v.06    | Semana 6 |                                                                            | [📂 v.06](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.06) |
+| v.06    | Semana 6 | Diseñando interfaces graficas con Swing                                     | [📂 v.06](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.06) |
 | v.07    | Semana 7 |                                                                            | [📂 v.07](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.07) |
 | v.08    | Semana 8 |                                                                            | [📂 v.08](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.08) |
 
