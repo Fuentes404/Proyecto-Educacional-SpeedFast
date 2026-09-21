@@ -7,16 +7,16 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 
 ## 📚 Contenido del repositorio
 
-| Versión | Semana   | Contenido                                                                | Ubicación                                                                               |
-| ------- | -------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| v.01    | Semana 1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo          | [📂 v.01](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.01) |
-| v.02    | Semana 2 | Definiendo una clase abstracta                                           | [📂 v.02](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.02) |
-| v.03    | Semana 3 | Integrando abstracción, polimorfismo y desacoplamiento                   | [📂 v.03](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.03) |
-| v.04    | Semana 4 | Integrando Concurrencia con hilos                                          | [📂 v.04](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.04) |
-| v.05    | Semana 5 | Coordinacion entre Clases con sincronización manual (`wait`/`notifyAll`)     | [📂 v.05](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.05) |
-| v.06    | Semana 6 | Diseñando interfaces graficas con Swing                                     | [📂 v.06](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.06) |
-| v.07    | Semana 7 |                                                                            | [📂 v.07](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.07) |
-| v.08    | Semana 8 |                                                                            | [📂 v.08](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.08) |
+| Versión | Semana   | Contenido                                                       | Ubicación                                                           |
+| ------- | -------- | --------------------------------------------------------------- | ------------------------------------------------------------------- |
+| v.01    | Semana 1 | Sobreescritura y sobrecarga de métodos, herencia y polimorfismo | [📂 v.01](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.01) |
+| v.02    | Semana 2 | Definiendo una clase abstracta                                  | [📂 v.02](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.02) |
+| v.03    | Semana 3 | Integrando abstracción, polimorfismo y desacoplamiento          | [📂 v.03](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.03) |
+| v.04    | Semana 4 | Integrando Concurrencia con hilos                               | [📂 v.04](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.04) |
+| v.05    | Semana 5 | Coordinando clases en un entorno concurrente                    | [📂 v.05](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.05) |
+| v.06    | Semana 6 | Interfaz gráfica con Swing y ejecución concurrente de entregas  | [📂 v.06](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.06) |
+| v.07    | Semana 7 | Conectando la aplicación a JDBC                                 | *(próximamente)*                                                    |
+| v.08    | Semana 8 |                                                                 | *(próximamente)*                                                    |
 
 ## 🧾 Cuadro resumen por semana
 
@@ -26,17 +26,18 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 | **Semana 2** | `model` (misma jerarquía de pedidos), `ui.Main`                                                            | `Pedido` pasa a ser una **clase abstracta**, obligando a cada subtipo de pedido a implementar su propio comportamiento.                                                              |
 | **Semana 3** | `interfaces` (`Despachable`, `Cancelable`, `Rastreable`), `model`, `services.ControladorEnvios`, `ui.Main` | Se incorporan **interfaces** para desacoplar comportamientos (despacho, cancelación, rastreo) y aparece `ControladorEnvios` como capa de servicio que coordina la lógica de negocio. |
 | **Semana 4** | `interfaces`, `model`, `services` (`ControladorEnvios`, `Repartidor`), `ui.Main`                           | Se suma la clase `Repartidor` y se integra **concurrencia con hilos** para simular el procesamiento simultáneo de pedidos.                                                           |
-| **Semana 5** | `model` (`Pedido`, `EstadoPedido`, `ZonaDeCarga`, `Repartidor`), `ui.Main`                                  | Se simplifica el modelo de pedidos (una sola clase `Pedido`, sin subtipos) y se incorpora `ZonaDeCarga` como cola compartida sincronizada, implementando el patrón **Productor-Consumidor** con `wait()`/`notifyAll()`. El hilo principal actúa como productor (registra pedidos) y los `Repartidor` actúan como consumidores concurrentes, coordinados además con `ExecutorService`. |
-| **Semana 6** | *Pendiente de definir*                                                                                     | Carpeta creada como base para el siguiente avance del proyecto.                                                                                                                      |
-| **Semana 7** | *Pendiente de definir*                                                                                     | Carpeta creada como base para el siguiente avance del proyecto.                                                                                                                      |
+| **Semana 5** | `ui.Main`, `model` (`Pedido`, `EstadoPedido`, `ZonaDeCarga`, `Repartidor`)                                  | Se implementa el patrón **Productor-Consumidor**: la clase `ZonaDeCarga` actúa como cola compartida sincronizada (`synchronized`, `wait()` y `notifyAll()`) entre el hilo principal, que registra los pedidos, y varios repartidores (`Runnable` dentro de un `ExecutorService`) que los retiran y entregan de forma concurrente. Se agrega el enum `EstadoPedido` (`PENDIENTE`, `EN_REPARTO`, `ENTREGADO`). |
+| **Semana 6** | `main`, `interfaces`, `model` (pedidos y `Repartidor`), `services` (`ControladorPedidos`, `ControladorRepartidores`), `util.Validador`, `view` (`VentanaPrincipal`, `VentanaRegistroPedido`, `VentanaListaPedidos`, `VentanaEntregas`) | Se incorpora una **interfaz gráfica con Java Swing** (ventanas `JFrame`, formulario de registro, tabla de pedidos y ventana de entregas). Un controlador único comparte los datos en memoria entre las ventanas, se validan los datos con `Validador` y las entregas se simulan de forma concurrente (`ExecutorService`) sin congelar la interfaz, usando `SwingWorker` y `SwingUtilities.invokeLater()`. |
+| **Semana 7** | *Pendiente de definir*                                                                                     | Se **conecta la aplicación a una base de datos mediante JDBC**, para que la información de pedidos y repartidores se almacene de forma persistente.                                  |
 | **Semana 8** | *Pendiente de definir*                                                                                     | Carpeta creada como base para el siguiente avance del proyecto.                                                                                                                      |
 
-> Nota: el detalle de las semanas 6 en adelante se irá completando a medida que se suban los avances correspondientes.
+> Nota: el detalle de las semanas 7 en adelante se irá completando a medida que se suban los avances correspondientes.
 
 ## 🛠️ Software y herramientas de desarrollo
 
 - **IDE:** [IntelliJ IDEA](https://www.jetbrains.com/idea/) (Community Edition o Ultimate)
 - **JDK:** Java Development Kit (JDK) 17 o superior
+- **Base de datos (desde la semana 7):** motor de base de datos compatible con JDBC y su respectivo *driver* (conector)
 - **Sistema de control de versiones:** Git
 - **Plataforma:** GitHub
 
@@ -56,10 +57,10 @@ git clone https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast.git
 cd Proyecto-Educacional-SpeedFast
 ```
 
-3. **Abrir la versión que te interese** (por ejemplo, la semana 5) desde tu IDE (IntelliJ IDEA):
+3. **Abrir la versión que te interese** (por ejemplo, la semana 4) desde tu IDE (IntelliJ IDEA):
 
 ```
-cd v.05
+cd v.04/SistemaSpeedFast
 ```
 
 y abrir esa carpeta como proyecto Maven/Java desde IntelliJ.
