@@ -34,7 +34,6 @@ public class VentanaRegistroPedido extends JFrame {
     private final ControladorPedidos controlador;
 
     // Componentes de la interfaz: campos comunes a todos los tipos
-    private final JTextField txtId = new JTextField(15);
     private final JTextField txtCliente = new JTextField(15);
     private final JTextField txtDireccion = new JTextField(15);
     private final JTextField txtDistancia = new JTextField(15);
@@ -72,9 +71,8 @@ public class VentanaRegistroPedido extends JFrame {
 
     // Crea el formulario: campos comunes, un panel por tipo de pedido y los botones
     private void construirInterfaz() {
-        // Campos comunes
+        // Campos comunes (el ID ya no se ingresa: lo asigna el controlador)
         JPanel panelComun = new JPanel(new GridLayout(0, 2, 8, 8));
-        agregarFila(panelComun, "ID:", txtId);
         agregarFila(panelComun, "Cliente:", txtCliente);
         agregarFila(panelComun, "Direccion:", txtDireccion);
         agregarFila(panelComun, "Distancia (km):", txtDistancia);
@@ -147,21 +145,13 @@ public class VentanaRegistroPedido extends JFrame {
     // Pasos: 1) leer los campos  2) validar  3) crear el pedido  4) confirmar  5) limpiar
     private void guardar() {
         // 1. Leer los campos comunes
-        String id = txtId.getText().trim();
         String cliente = txtCliente.getText().trim();
         String direccion = txtDireccion.getText().trim();
         String distancia = txtDistancia.getText().trim();
         String tipo = (String) cmbTipo.getSelectedItem();
 
-        // 2. Validar. El ID se revisa tambien aqui para mostrar un mensaje claro en el formulario;
-        // el controlador lo vuelve a validar por seguridad
-        String errorId = Validador.validarId(id);
-        if (errorId == null && controlador.existeId(id)) {
-            errorId = "Ya existe un pedido con el ID \"" + id + "\".";
-        }
-
+        // 2. Validar
         List<String> errores = new ArrayList<>();
-        errores.add(errorId);
         errores.add(Validador.validarObligatorio("Cliente", cliente));
         errores.add(Validador.validarObligatorio("Direccion", direccion));
         errores.add(Validador.validarNumeroPositivo("Distancia (km)", distancia));
@@ -188,20 +178,15 @@ public class VentanaRegistroPedido extends JFrame {
         // 3. Crear el pedido en el controlador segun el tipo elegido
         double distanciaKm = Validador.aNumero(distancia);
         Pedido pedido;
-        try {
-            if (TIPO_COMIDA.equals(tipo)) {
-                pedido = controlador.registrarComida(id, cliente, direccion, distanciaKm,
-                        txtRestaurante.getText().trim(), txtTiempoPrep.getText().trim());
-            } else if (TIPO_ENCOMIENDA.equals(tipo)) {
-                pedido = controlador.registrarEncomienda(id, cliente, direccion, distanciaKm,
-                        Validador.aNumero(txtPeso.getText()), Validador.aNumero(txtVolumen.getText()));
-            } else {
-                pedido = controlador.registrarExpress(id, cliente, direccion, distanciaKm,
-                        txtTienda.getText().trim());
-            }
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "No se pudo registrar", JOptionPane.ERROR_MESSAGE);
-            return;
+        if (TIPO_COMIDA.equals(tipo)) {
+            pedido = controlador.registrarComida(cliente, direccion, distanciaKm,
+                    txtRestaurante.getText().trim(), txtTiempoPrep.getText().trim());
+        } else if (TIPO_ENCOMIENDA.equals(tipo)) {
+            pedido = controlador.registrarEncomienda(cliente, direccion, distanciaKm,
+                    Validador.aNumero(txtPeso.getText()), Validador.aNumero(txtVolumen.getText()));
+        } else {
+            pedido = controlador.registrarExpress(cliente, direccion, distanciaKm,
+                    txtTienda.getText().trim());
         }
 
         // 4. Confirmar mostrando el resumen y el tiempo estimado
@@ -214,9 +199,8 @@ public class VentanaRegistroPedido extends JFrame {
         limpiarFormulario();
     }
 
-    // Vacia todos los campos, vuelve al primer tipo del combo y deja el cursor en el ID
+    // Vacia todos los campos, vuelve al primer tipo del combo y deja el cursor en Cliente
     private void limpiarFormulario() {
-        txtId.setText("");
         txtCliente.setText("");
         txtDireccion.setText("");
         txtDistancia.setText("");
@@ -226,6 +210,6 @@ public class VentanaRegistroPedido extends JFrame {
         txtVolumen.setText("");
         txtTienda.setText("");
         cmbTipo.setSelectedIndex(0);
-        txtId.requestFocusInWindow();
+        txtCliente.requestFocusInWindow();
     }
 }

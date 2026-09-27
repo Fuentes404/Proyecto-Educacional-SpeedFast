@@ -7,28 +7,32 @@ import java.util.function.Consumer;
 public class Repartidor implements Runnable {
 
     // Atributos
+    private int id;
     private String nombre;
     private List<Pedido> pedidosAsignados;
     private Consumer<String> salida;   // Donde se envian los mensajes (la GUI o la consola)
     private Random random = new Random();
 
     // Constructor: los mensajes salen por consola
-    public Repartidor(String nombre, List<Pedido> pedidosAsignados) {
-        this(nombre, pedidosAsignados, System.out::println);
+    public Repartidor(int id, String nombre, List<Pedido> pedidosAsignados) {
+        this(id, nombre, pedidosAsignados, System.out::println);
     }
 
     // Constructor: los mensajes salen por el consumidor indicado (ej: el JTextArea)
-    public Repartidor(String nombre, List<Pedido> pedidosAsignados, Consumer<String> salida) {
+    public Repartidor(int id, String nombre, List<Pedido> pedidosAsignados, Consumer<String> salida) {
+        this.id = id;
         this.nombre = nombre;
         this.pedidosAsignados = pedidosAsignados;
         this.salida = salida;
     }
 
     // Metodos Getter
+    public int getId() {
+        return id;
+    }
     public String getNombre() {
         return nombre;
     }
-
     public List<Pedido> getPedidosAsignados() {
         return pedidosAsignados;
     }

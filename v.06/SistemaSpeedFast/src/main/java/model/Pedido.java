@@ -2,26 +2,27 @@ package model;
 
 public abstract class Pedido {
     // Atributos
-    private String idPedido;
+    private int idPedido;
     private String cliente;
     private String direccion;
     private double distanciaKm;
-    private String tipoPedido;
+    private TipoPedido tipoPedido;
+    private EstadoPedido estado;
 
     // Constructor
-    public Pedido(String idPedido, String cliente, String direccion, double distanciaKm) {
+    public Pedido(int idPedido, String cliente, String direccion, double distanciaKm) {
         this.idPedido = idPedido;
         this.cliente = cliente;
         this.direccion = direccion;
         this.distanciaKm = distanciaKm;
-        this.tipoPedido = "General";
+        this.estado = EstadoPedido.PENDIENTE;
     }
 
     // Metodos Getter and Setter
-    public String getIdPedido() {
+    public int getIdPedido() {
         return idPedido;
     }
-    public void setIdPedido(String idPedido) {
+    public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
     }
     public String getCliente() {
@@ -42,11 +43,17 @@ public abstract class Pedido {
     public void setDistanciaKm(double distanciaKm) {
         this.distanciaKm = distanciaKm;
     }
-    public String getTipoPedido() {
+    public TipoPedido getTipoPedido() {
         return tipoPedido;
     }
-    public void setTipoPedido(String tipoPedido) {
+    public void setTipoPedido(TipoPedido tipoPedido) {
         this.tipoPedido = tipoPedido;
+    }
+    public EstadoPedido getEstado() {
+        return estado;
+    }
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
     }
 
     // Metodo Mostrar Resumen Pedido
@@ -55,7 +62,8 @@ public abstract class Pedido {
                 "Pedido N°: " + getIdPedido() + "\n" +
                 "Cliente: " + getCliente() + "\n" +
                 "Direccion: " + getDireccion() + "\n" +
-                "Distancia: " + getDistanciaKm() + " km";
+                "Distancia: " + getDistanciaKm() + " km\n" +
+                "Estado: " + getEstado();
     }
 
     // Metodo abstracto para calcular el tiempo de entrega

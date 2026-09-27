@@ -7,10 +7,10 @@ public class PedidoExpress extends Pedido implements Despachable {
     private String tienda;
 
     // Constructor
-    public PedidoExpress(String idPedido, String cliente, String direccion, double distanciaKm, String tienda) {
+    public PedidoExpress(int idPedido, String cliente, String direccion, double distanciaKm, String tienda) {
         super(idPedido, cliente, direccion, distanciaKm);
         this.tienda = tienda;
-        setTipoPedido("Compra Express");
+        setTipoPedido(TipoPedido.EXPRESS);
     }
 
     // Metodo Getter and Setter
@@ -53,6 +53,7 @@ public class PedidoExpress extends Pedido implements Despachable {
     }
 
     // Metodo Despachar (interfaz Despachable)
+    // Para Express, asignar repartidor equivale a despachar (se fusionan en el controlador)
     @Override
     public String despachar() {
         return "Pedido N°: " + getIdPedido() + " - Compra Express de " + getTienda() +

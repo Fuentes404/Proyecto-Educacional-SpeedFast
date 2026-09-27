@@ -3,6 +3,7 @@ package view;
 import services.ControladorPedidos;
 import services.ControladorRepartidores;
 import model.Pedido;
+import interfaces.Cancelable;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -30,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 // Ventana para asignar repartidores a pedidos pendientes e iniciar la simulacion de entregas.
+// Tambien permite cancelar pedidos, segun el tipo lo admita.
 // La simulacion corre en un hilo aparte para no congelar la interfaz.
 public class VentanaEntregas extends JFrame {
 
@@ -44,6 +46,7 @@ public class VentanaEntregas extends JFrame {
     private final JComboBox<Pedido> cmbPedidos = new JComboBox<>();
     private final JComboBox<String> cmbRepartidores = new JComboBox<>();
     private final JButton btnAsignar = new JButton("Asignar repartidor");
+    private final JButton btnCancelar = new JButton("Cancelar pedido");
     private final JButton btnIniciar = new JButton("Iniciar entregas");
     private final JButton btnLimpiar = new JButton("Limpiar salida");
     private final JButton btnCerrar = new JButton("Cerrar");
@@ -96,10 +99,13 @@ public class VentanaEntregas extends JFrame {
             }
         });
 
-        // Panel superior: asignacion manual
+        // Al cambiar el pedido seleccionado se actualizan los botones segun su tipo (Cancelable)
+        cmbPedidos.addActionListener(e -> actualizarControles());
+
+        // Panel superior: asignacion manual y cancelacion
         JPanel panelAsignacion = new JPanel(new GridLayout(0, 2, 8, 8));
         panelAsignacion.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Asignar repartidor a un pedido pendiente"),
+                BorderFactory.createTitledBorder("Gestionar un pedido pendiente"),
                 BorderFactory.createEmptyBorder(5, 8, 8, 8)));
         panelAsignacion.add(new JLabel("Pedido:"));
         panelAsignacion.add(cmbPedidos);
@@ -107,6 +113,8 @@ public class VentanaEntregas extends JFrame {
         panelAsignacion.add(cmbRepartidores);
         panelAsignacion.add(new JLabel());
         panelAsignacion.add(btnAsignar);
+        panelAsignacion.add(new JLabel());
+        panelAsignacion.add(btnCancelar);
 
         // Panel central: salida de mensajes
         txtSalida.setEditable(false);
@@ -116,6 +124,7 @@ public class VentanaEntregas extends JFrame {
 
         // Eventos y acciones de los botones
         btnAsignar.addActionListener(e -> asignar());
+        btnCancelar.addActionListener(e -> cancelar());
         btnIniciar.addActionListener(e -> iniciarEntregas());
         btnLimpiar.addActionListener(e -> txtSalida.setText(""));
         btnCerrar.addActionListener(e -> dispose());
@@ -139,13 +148,13 @@ public class VentanaEntregas extends JFrame {
     // Llena el combo con los pedidos pendientes y mantiene seleccionado el que estaba elegido
     private void cargarPedidos() {
         Pedido seleccionado = (Pedido) cmbPedidos.getSelectedItem();
-        String idSeleccionado = (seleccionado != null) ? seleccionado.getIdPedido() : null;
+        int idSeleccionado = (seleccionado != null) ? seleccionado.getIdPedido() : -1;
 
         cmbPedidos.removeAllItems();
         Pedido reseleccion = null;
         for (Pedido p : controladorPedidos.getPedidosPendientes()) {
             cmbPedidos.addItem(p);
-            if (p.getIdPedido().equals(idSeleccionado)) {
+            if (p.getIdPedido() == idSeleccionado) {
                 reseleccion = p;
             }
         }
@@ -155,13 +164,17 @@ public class VentanaEntregas extends JFrame {
         actualizarControles();
     }
 
-    // Habilita o deshabilita los controles segun haya pedidos y segun si hay una simulacion en curso
+    // Habilita o deshabilita los controles segun el pedido seleccionado, su tipo y si hay simulacion en curso
     private void actualizarControles() {
-        boolean hayPedidos = cmbPedidos.getItemCount() > 0;
+        Pedido seleccionado = (Pedido) cmbPedidos.getSelectedItem();
+        boolean hayPedidos = seleccionado != null;
+
         cmbPedidos.setEnabled(!simulando);
         cmbRepartidores.setEnabled(!simulando);
         btnAsignar.setEnabled(hayPedidos && !simulando);
-        btnIniciar.setEnabled(hayPedidos && !simulando);
+        btnIniciar.setEnabled(cmbPedidos.getItemCount() > 0 && !simulando);
+        // Cancelar solo se habilita si el tipo de pedido implementa Cancelable
+        btnCancelar.setEnabled(hayPedidos && !simulando && seleccionado instanceof Cancelable);
     }
 
     // Cambia el estado de simulacion y actualiza los controles
@@ -187,8 +200,24 @@ public class VentanaEntregas extends JFrame {
         try {
             String detalle = controladorPedidos.asignarRepartidor(pedido.getIdPedido(), repartidor);
             agregarSalida("Asignacion realizada\n" + SEPARADOR + "\n" + detalle + "\n" + SEPARADOR);
+            actualizarControles();
         } catch (IllegalArgumentException | IllegalStateException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "No se pudo asignar", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Cancela el pedido elegido (solo si su tipo implementa Cancelable) y refresca la lista
+    private void cancelar() {
+        Pedido pedido = (Pedido) cmbPedidos.getSelectedItem();
+        if (pedido == null) {
+            return;
+        }
+        try {
+            String detalle = controladorPedidos.cancelarPedido(pedido.getIdPedido());
+            agregarSalida("Cancelacion realizada\n" + SEPARADOR + "\n" + detalle + "\n" + SEPARADOR);
+            cargarPedidos();
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "No se pudo cancelar", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -208,7 +237,7 @@ public class VentanaEntregas extends JFrame {
         }
 
         setSimulando(true);
-        Map<String, String> asignaciones = controladorPedidos.getAsignaciones();
+        Map<Integer, String> asignaciones = controladorPedidos.getAsignaciones();
 
         // Los hilos de los repartidores NO tocan la GUI directamente: encolan el mensaje en el EDT
         Consumer<String> salida = mensaje -> SwingUtilities.invokeLater(() -> agregarSalida(mensaje));

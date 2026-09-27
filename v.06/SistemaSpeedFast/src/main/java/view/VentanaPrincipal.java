@@ -42,12 +42,12 @@ public class VentanaPrincipal extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         construirInterfaz();
-        setSize(420, 320);
+        setSize(420, 360);
         setLocationRelativeTo(null);
     }
 
     // Construccion de la interfaz
-    // Crea el titulo y los tres botones del menu, y conecta los eventos
+    // Crea el titulo y los cuatro botones del menu, y conecta los eventos
     private void construirInterfaz() {
         // Titulo
         JLabel lblTitulo = new JLabel("SpeedFast - Gestion de Entregas", SwingConstants.CENTER);
@@ -58,18 +58,21 @@ public class VentanaPrincipal extends JFrame {
         JButton btnRegistrar = new JButton("Registrar pedido");
         JButton btnListar = new JButton("Listar pedidos");
         JButton btnEntregas = new JButton("Asignar repartidor / Iniciar entrega");
+        JButton btnSalir = new JButton("Salir");
 
         // Eventos y acciones
         btnRegistrar.addActionListener(e -> abrirRegistro());
         btnListar.addActionListener(e -> abrirLista());
         btnEntregas.addActionListener(e -> abrirEntregas());
+        btnSalir.addActionListener(e -> salir());
 
-        // Panel de botones: una columna, tres filas
-        JPanel panelBotones = new JPanel(new GridLayout(3, 1, 0, 12));
+        // Panel de botones: una columna, cuatro filas
+        JPanel panelBotones = new JPanel(new GridLayout(4, 1, 0, 12));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 40, 30, 40));
         panelBotones.add(btnRegistrar);
         panelBotones.add(btnListar);
         panelBotones.add(btnEntregas);
+        panelBotones.add(btnSalir);
 
         // Contenido: titulo arriba y botones al centro
         setLayout(new BorderLayout());
@@ -110,5 +113,11 @@ public class VentanaPrincipal extends JFrame {
         ventana.setVisible(true);
         ventana.setState(JFrame.NORMAL);
         ventana.toFront();
+    }
+
+    // Cierra la aplicacion completa
+    private void salir() {
+        dispose();
+        System.exit(0);
     }
 }

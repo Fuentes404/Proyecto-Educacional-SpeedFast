@@ -9,11 +9,11 @@ public class PedidoComida extends Pedido implements Cancelable, Rastreable {
     private String tiempoPreparacion;
 
     // Constructor
-    public PedidoComida(String idPedido, String cliente, String direccion, double distanciaKm, String restaurante, String tiempoPreparacion) {
+    public PedidoComida(int idPedido, String cliente, String direccion, double distanciaKm, String restaurante, String tiempoPreparacion) {
         super(idPedido, cliente, direccion, distanciaKm);
         this.restaurante = restaurante;
         this.tiempoPreparacion = tiempoPreparacion;
-        setTipoPedido("Comida");
+        setTipoPedido(TipoPedido.COMIDA);
     }
 
     // Metodos Getter and Setter
@@ -70,6 +70,6 @@ public class PedidoComida extends Pedido implements Cancelable, Rastreable {
     @Override
     public String verHistorial() {
         return "Pedido N°: " + getIdPedido() + " | Cliente: " + getCliente() +
-                " | Restaurante: " + getRestaurante() + " | Estado actual: En Camino.";
+                " | Restaurante: " + getRestaurante() + " | Estado actual: " + getEstado() + ".";
     }
 }

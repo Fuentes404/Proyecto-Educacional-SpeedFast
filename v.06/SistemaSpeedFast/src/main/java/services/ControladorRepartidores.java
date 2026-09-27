@@ -26,9 +26,9 @@ public class ControladorRepartidores {
     // Constructor
     // Deja registrados tres repartidores de ejemplo
     public ControladorRepartidores() {
-        repartidores.add(new Repartidor("Carlos", new ArrayList<>()));
-        repartidores.add(new Repartidor("Fernanda", new ArrayList<>()));
-        repartidores.add(new Repartidor("Matias", new ArrayList<>()));
+        repartidores.add(new Repartidor(1, "Carlos", new ArrayList<>()));
+        repartidores.add(new Repartidor(2, "Fernanda", new ArrayList<>()));
+        repartidores.add(new Repartidor(3, "Matias", new ArrayList<>()));
     }
 
     // Consultas
@@ -52,7 +52,7 @@ public class ControladorRepartidores {
     // Simula las entregas con un hilo por repartidor y espera a que todos terminen.
     // Los mensajes se envian al consumidor "salida".
     // Devuelve: true si todos terminaron bien; false si no habia datos, hubo timeout o interrupcion
-    public boolean simularEntregas(List<Pedido> pedidos, Map<String, String> asignaciones, Consumer<String> salida) {
+    public boolean simularEntregas(List<Pedido> pedidos, Map<Integer, String> asignaciones, Consumer<String> salida) {
         if (pedidos.isEmpty() || repartidores.isEmpty()) {
             salida.accept("No hay pedidos o repartidores para simular.");
             return false;
@@ -61,7 +61,7 @@ public class ControladorRepartidores {
         // 1. Copias de los repartidores con listas vacias (asi no se acumulan pedidos entre simulaciones)
         List<Repartidor> ruta = new ArrayList<>();
         for (Repartidor r : repartidores) {
-            ruta.add(new Repartidor(r.getNombre(), new ArrayList<>(), salida));
+            ruta.add(new Repartidor(r.getId(), r.getNombre(), new ArrayList<>(), salida));
         }
 
         // 2. Respetar las asignaciones manuales

@@ -9,11 +9,11 @@ public class PedidoEncomienda extends Pedido implements Cancelable, Rastreable {
     private double volumen;
 
     // Constructor
-    public PedidoEncomienda(String idPedido, String cliente, String direccion, double distanciaKm, double peso, double volumen) {
+    public PedidoEncomienda(int idPedido, String cliente, String direccion, double distanciaKm, double peso, double volumen) {
         super(idPedido, cliente, direccion, distanciaKm);
         this.peso = peso;
         this.volumen = volumen;
-        setTipoPedido("Encomienda");
+        setTipoPedido(TipoPedido.ENCOMIENDA);
     }
 
     // Metodo Getter and Setter
@@ -81,7 +81,7 @@ public class PedidoEncomienda extends Pedido implements Cancelable, Rastreable {
     @Override
     public String verHistorial() {
         return "Pedido N°: " + getIdPedido() + " | Cliente: " + getCliente() +
-                " | Peso: " + getPeso() + " kg | Estado actual: En Camino.";
+                " | Peso: " + getPeso() + " kg | Estado actual: " + getEstado() + ".";
     }
 
 }
