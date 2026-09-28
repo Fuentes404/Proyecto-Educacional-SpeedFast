@@ -15,7 +15,7 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 | v.04    | Semana 4 | Integrando Concurrencia con hilos                               | [📂 v.04](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.04) |
 | v.05    | Semana 5 | Coordinando clases en un entorno concurrente                    | [📂 v.05](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.05) |
 | v.06    | Semana 6 | Interfaz gráfica con Swing y ejecución concurrente de entregas  | [📂 v.06](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.06) |
-| v.07    | Semana 7 | Conectando la aplicación a JDBC                                 | *(próximamente)*                                                    |
+| v.07    | Semana 7 | Conectando la aplicación a JDBC (persistencia en MySQL)         | [📂 v.07](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.07) |
 | v.08    | Semana 8 |                                                                 | *(próximamente)*                                                    |
 
 ## 🧾 Cuadro resumen por semana
@@ -28,16 +28,17 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 | **Semana 4** | `interfaces`, `model`, `services` (`ControladorEnvios`, `Repartidor`), `ui.Main`                           | Se suma la clase `Repartidor` y se integra **concurrencia con hilos** para simular el procesamiento simultáneo de pedidos.                                                           |
 | **Semana 5** | `ui.Main`, `model` (`Pedido`, `EstadoPedido`, `ZonaDeCarga`, `Repartidor`)                                  | Se implementa el patrón **Productor-Consumidor**: la clase `ZonaDeCarga` actúa como cola compartida sincronizada (`synchronized`, `wait()` y `notifyAll()`) entre el hilo principal, que registra los pedidos, y varios repartidores (`Runnable` dentro de un `ExecutorService`) que los retiran y entregan de forma concurrente. Se agrega el enum `EstadoPedido` (`PENDIENTE`, `EN_REPARTO`, `ENTREGADO`). |
 | **Semana 6** | `main`, `interfaces`, `model` (pedidos y `Repartidor`), `services` (`ControladorPedidos`, `ControladorRepartidores`), `util.Validador`, `view` (`VentanaPrincipal`, `VentanaRegistroPedido`, `VentanaListaPedidos`, `VentanaEntregas`) | Se incorpora una **interfaz gráfica con Java Swing** (ventanas `JFrame`, formulario de registro, tabla de pedidos y ventana de entregas). Un controlador único comparte los datos en memoria entre las ventanas, se validan los datos con `Validador` y las entregas se simulan de forma concurrente (`ExecutorService`) sin congelar la interfaz, usando `SwingWorker` y `SwingUtilities.invokeLater()`. |
-| **Semana 7** | *Pendiente de definir*                                                                                     | Se **conecta la aplicación a una base de datos mediante JDBC**, para que la información de pedidos y repartidores se almacene de forma persistente.                                  |
+| **Semana 7** | `dao` (`ConexionDB`, `PedidoDAO`, `RepartidorDAO`, `EntregaDAO`), `model` (se agregan `Entrega` y `TipoPedido`), `services`, `view` (se agrega `VentanaRepartidores`), `sql` (`speedfast_db.sql`) | Se **conecta la aplicación a MySQL mediante JDBC**: la información de pedidos, repartidores y entregas ya no vive en memoria, sino que se guarda de forma **persistente**. Se crea la capa de acceso a datos con clases **DAO** (`PreparedStatement`, `ResultSet` y `try-with-resources`) y la clase `ConexionDB` (`DriverManager`). Los tres tipos de pedido se almacenan en una sola tabla (**herencia de tabla única**) y la tabla `entrega` relaciona pedidos con repartidores mediante claves foráneas. Los ID los genera la base de datos (`AUTO_INCREMENT`), los controladores pasan a usar los DAO y los repartidores se registran y eliminan desde la interfaz. Se incluye el script `sql/speedfast_db.sql` con la estructura de la base de datos. |
 | **Semana 8** | *Pendiente de definir*                                                                                     | Carpeta creada como base para el siguiente avance del proyecto.                                                                                                                      |
 
-> Nota: el detalle de las semanas 7 en adelante se irá completando a medida que se suban los avances correspondientes.
+> Nota: el detalle de las semanas 8 en adelante se irá completando a medida que se suban los avances correspondientes.
 
 ## 🛠️ Software y herramientas de desarrollo
 
 - **IDE:** [IntelliJ IDEA](https://www.jetbrains.com/idea/) (Community Edition o Ultimate)
-- **JDK:** Java Development Kit (JDK) 17 o superior
-- **Base de datos (desde la semana 7):** motor de base de datos compatible con JDBC y su respectivo *driver* (conector)
+- **JDK:** Java Development Kit (JDK) 17 o superior (la versión 7 está configurada para JDK 23)
+- **Base de datos (desde la semana 7):** [MySQL](https://dev.mysql.com/downloads/) 8 o superior (MySQL Server y MySQL Workbench)
+- **Conector JDBC (desde la semana 7):** MySQL Connector/J, incluido como dependencia Maven en el `pom.xml`
 - **Sistema de control de versiones:** Git
 - **Plataforma:** GitHub
 
@@ -64,6 +65,9 @@ cd v.04/SistemaSpeedFast
 ```
 
 y abrir esa carpeta como proyecto Maven/Java desde IntelliJ.
+
+> A partir de la **versión 7** también necesitas MySQL en ejecución y ajustar la contraseña de tu usuario en
+> la clase `ConexionDB`. Las instrucciones detalladas están en el README de esa carpeta.
 
 ## 🎯 Finalidad del proyecto
 
