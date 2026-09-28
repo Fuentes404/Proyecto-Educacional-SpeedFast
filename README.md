@@ -16,7 +16,7 @@ aplicando progresivamente los distintos conceptos de la Programación Orientada 
 | v.05    | Semana 5 | Coordinando clases en un entorno concurrente                    | [📂 v.05](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.05) |
 | v.06    | Semana 6 | Interfaz gráfica con Swing y ejecución concurrente de entregas  | [📂 v.06](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.06) |
 | v.07    | Semana 7 | Conectando la aplicación a JDBC (persistencia en MySQL)         | [📂 v.07](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.07) |
-| v.08    | Semana 8 |                                                                 | *(próximamente)*                                                    |
+| v.08    | Semana 8 | Gestionando datos Mediante operaciones CRUD                     | [📂 v.08](https://github.com/Fuentes404/Proyecto-Educacional-SpeedFast/blob/main/v.08)  |
 
 ## 🧾 Cuadro resumen por semana
 
